@@ -6,3 +6,5 @@
 *.suo
 obj/Debug/Urchin.csproj.FileListAbsolute.txt
 *.suo
+*.userprefs
+Urchin.userprefs
