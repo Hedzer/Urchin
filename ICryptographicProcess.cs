@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Urchin
-{
-	public interface ICryptographicProcess
-	{
+namespace Urchin {
+	public interface ICryptographicProcess {
 	}
 }
 

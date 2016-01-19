@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Urchin
-{
-	public interface IScheduleKey
-	{
+namespace Urchin {
+	public interface IScheduleKey {
 	}
 }
 
