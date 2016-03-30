@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Urchin {
 	public class Cipher {
-		private Urchin.Settings Settings = new Settings();
-		public Cipher(Urchin.Settings settings){
+		Settings Settings = new Settings();
+		public Cipher(Settings settings){
 			this.Settings = settings;
 		}
-		private bool isInitialized(){
-			return (string.IsNullOrEmpty(this.Settings.key));
+		bool isInitialized(){
+			return string.IsNullOrEmpty(Settings.key);
 		}
 		public byte[] encrypt(byte[] plaintext) {
 			byte[] result = new byte[plaintext.Length];
