@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Urchin {
-	public struct Settings {
-		public String key;
-		public String salt;
+	public class Settings {
+		public string key {get; set;}
+		public string salt {get; set;}
 	}
 }
