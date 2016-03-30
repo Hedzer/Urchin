@@ -9,3 +9,5 @@ obj/Debug/Urchin.csproj.FileListAbsolute.txt
 *.userprefs
 Urchin.userprefs
 obj/Debug/Urchin.csprojResolveAssemblyReference.cache
+*.sdsettings
+Sublime Style Settings.sdsettings
