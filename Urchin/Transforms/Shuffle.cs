@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
+using Urchin.Extensions.BitArray;
 
 namespace Urchin.Transforms
 {
@@ -22,7 +23,7 @@ namespace Urchin.Transforms
             set
             {
                 wordSize = value;
-                seedSize = value * 8;
+                seedSize = value * 16;
             }
         }
 
@@ -33,13 +34,27 @@ namespace Urchin.Transforms
 
         public BitArray Reverse(BitArray word)
         {
-            return Transform(word);
+            BitArray result = new BitArray(word);
+            Int16[] random = new Int16[seedSize];
+            Seed.CopyTo(random, 0);
+            for (int i = wordSize; i > 0; i--)
+            {
+                int r = random[i] % wordSize;
+                result.Swap(r, i);
+            }
+            return result;
         }
 
         public BitArray Transform(BitArray word)
         {
             BitArray result = new BitArray(word);
-
+            Int16[] random = new Int16[seedSize];
+            Seed.CopyTo(random, 0);
+            for (int i = 0; i < wordSize; i++)
+            {
+                int r = random[i] % wordSize;
+                result.Swap(i, r);
+            }
             return result;
         }
     }
