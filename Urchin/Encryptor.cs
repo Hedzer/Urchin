@@ -55,11 +55,14 @@ namespace Urchin
                 bits = process.Transform(bits);
             }
 
+            bits.CopyTo(block, 0);
+
             // Next 24-40 rounds
             BlockTransformer blockTransformer = new BlockTransformer(keySchedule);
             for (int i = 0; i < rounds; i++)
             {
-                
+                blockTransformer.Transform(block);
+                blockTransformer.PseudoRandomize();
             }
 
             return inputCount;

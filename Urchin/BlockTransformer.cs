@@ -41,7 +41,7 @@ namespace Urchin
         public BlockTransformer(IKeySchedule keySchedule)
         {
             KeySchedule = keySchedule ?? throw new ArgumentNullException();
-            Mix();
+            PseudoRandomize();
         }
 
         public byte[] Reverse(byte[] block)
@@ -100,7 +100,7 @@ namespace Urchin
             return result;
         }
 
-        public void Mix()
+        public void PseudoRandomize()
         {
             NewWordSize();
             InstantiateWordTransforms();

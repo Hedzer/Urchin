@@ -20,6 +20,6 @@ namespace Urchin.Interfaces
         // Reverse the transform
         byte[] Reverse(byte[] block);
         // Mix, don't repeat the transform
-        void Mix();
+        void PseudoRandomize();
     }
 }
