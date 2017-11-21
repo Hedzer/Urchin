@@ -1,0 +1,15 @@
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\UrchinTests.pdb
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+\\VBOXSVR\GitHub\Urchin\UrchinTests\obj\Debug\UrchinTests.csprojResolveAssemblyReference.cache
+\\VBOXSVR\GitHub\Urchin\UrchinTests\obj\Debug\UrchinTests.csproj.CoreCompileInputs.cache
+\\VBOXSVR\GitHub\Urchin\UrchinTests\obj\Debug\UrchinTests.pdb
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\UrchinTests.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\obj\Debug\UrchinTests.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Urchin.dll
+\\VBOXSVR\GitHub\Urchin\UrchinTests\bin\Debug\Urchin.pdb

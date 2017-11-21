@@ -1,0 +1,6 @@
+\\VBOXSVR\GitHub\Urchin\Urchin\obj\Debug\Urchin.csprojResolveAssemblyReference.cache
+\\VBOXSVR\GitHub\Urchin\Urchin\obj\Debug\Urchin.csproj.CoreCompileInputs.cache
+\\VBOXSVR\GitHub\Urchin\Urchin\bin\Debug\Urchin.dll
+\\VBOXSVR\GitHub\Urchin\Urchin\bin\Debug\Urchin.pdb
+\\VBOXSVR\GitHub\Urchin\Urchin\obj\Debug\Urchin.dll
+\\VBOXSVR\GitHub\Urchin\Urchin\obj\Debug\Urchin.pdb
