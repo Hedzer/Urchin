@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace Urchin.Extensions.BitArray
+namespace Urchin.Extensions.BitArray.Swap
 {
     static class SwapExt
     {

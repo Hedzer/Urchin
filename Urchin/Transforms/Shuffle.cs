@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
-using Urchin.Extensions.BitArray;
+using Urchin.Extensions.BitArray.Swap;
 
 namespace Urchin.Transforms
 {
