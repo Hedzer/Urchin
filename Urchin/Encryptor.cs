@@ -61,9 +61,11 @@ namespace Urchin
             BlockTransformer blockTransformer = new BlockTransformer(keySchedule);
             for (int i = 0; i < rounds; i++)
             {
-                blockTransformer.Transform(block);
+                block = blockTransformer.Transform(block);
                 blockTransformer.PseudoRandomize();
             }
+
+            block.CopyTo(outputBuffer, outputOffset);
 
             return inputCount;
         }
