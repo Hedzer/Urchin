@@ -7,41 +7,15 @@ using System.Security.Cryptography;
 using Urchin.Interfaces;
 using Urchin.Transforms;
 using System.Collections;
+using Urchin.Abstracts;
 
 namespace Urchin
 {
-    class Encryptor : ICryptoTransform
+    class Encryptor : CryptoTransform
     {
+        public Encryptor(byte[] key, byte[] iv, IKeySchedule keySchedule) : base(key, iv, keySchedule) {}
 
-        // Urchin Encryptor
-        private IKeySchedule keySchedule;
-        private int rounds;
-        public Encryptor(byte[] key, byte[] iv, IKeySchedule keySchedule)
-        {
-            IKeySchedule scheduler = keySchedule.CreateInstance();
-            scheduler.Key = key;
-            scheduler.IV = iv;
-            this.keySchedule = scheduler;
-            byte[] random = new byte[8];
-            scheduler.GetNext(8).CopyTo(random, 0);
-            rounds = random[0] % 16 + 24;
-        }
-
-        // ICryptoTransform
-        public int InputBlockSize => 512;
-
-        public int OutputBlockSize => 512;
-
-        public bool CanTransformMultipleBlocks => true;
-
-        public bool CanReuseTransform => true;
-
-        public void Dispose()
-        {
-            return;
-        }
-
-        public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+        public override int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
             byte[] block = new byte[inputCount];
             Array.ConstrainedCopy(inputBuffer, inputOffset, block, 0, inputCount);
@@ -70,7 +44,7 @@ namespace Urchin
             return inputCount;
         }
 
-        public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+        public override byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
             byte[] outputBuffer = new byte[inputCount];
             TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);

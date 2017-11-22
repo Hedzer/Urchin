@@ -5,34 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Urchin.Interfaces;
+using Urchin.Abstracts;
 
 namespace Urchin
 {
-    class Decryptor : ICryptoTransform
+    class Decryptor : CryptoTransform
     {
-        public Decryptor(byte[] key, byte[] iv, IKeySchedule keySchedule)
-        {
+        public Decryptor(byte[] key, byte[] iv, IKeySchedule keySchedule) : base(key, iv, keySchedule) { }
 
-        }
-        public int InputBlockSize => 512;
-
-        public int OutputBlockSize => 512;
-
-        public bool CanTransformMultipleBlocks => true;
-
-        public bool CanReuseTransform => true;
-
-        public void Dispose()
+        public override int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
             throw new NotImplementedException();
         }
 
-        public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+        public override byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
             throw new NotImplementedException();
         }
