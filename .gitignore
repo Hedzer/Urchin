@@ -11,3 +11,4 @@ Urchin.userprefs
 obj/Debug/Urchin.csprojResolveAssemblyReference.cache
 *.sdsettings
 Sublime Style Settings.sdsettings
+*.cache
