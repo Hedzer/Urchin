@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
 using Urchin.Transforms;
+using Urchin.Extensions.IEnumerable.Swap;
 
 namespace Urchin
 {
@@ -138,10 +139,7 @@ namespace Urchin
             for (int i = 0; i < count; i++)
             {
                 int r = random[i] % count;
-                IWordTransformer current = transforms[i];
-                IWordTransformer picked = transforms[r];
-                transforms[i] = picked;
-                transforms[r] = current;
+                transforms.Swap(i, r);
             }
         }
     }
