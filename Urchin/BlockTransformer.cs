@@ -20,8 +20,7 @@ namespace Urchin
             typeof(Shuffle),
         };
         private IWordTransformer[] transforms;
-        // size of word in bits
-        private int wordSize;
+        private int wordSize; // size of word in bits
 
         public IKeySchedule KeySchedule { get; set; }
         public IWordTransformer[] Transforms
@@ -76,7 +75,14 @@ namespace Urchin
             bits.CopyTo(result, 0);
             return result;
         }
-        
+
+        public void PseudoRandomize()
+        {
+            NewWordSize();
+            InstantiateWordTransforms();
+            ShuffleWordTransforms();
+        }
+
         private List<BitArray> BreakIntoWords(byte[] block)
         {
             List<BitArray> result = new List<BitArray> { };
@@ -99,13 +105,6 @@ namespace Urchin
             }
 
             return result;
-        }
-
-        public void PseudoRandomize()
-        {
-            NewWordSize();
-            InstantiateWordTransforms();
-            ShuffleWordTransforms();
         }
 
         private void NewWordSize()
