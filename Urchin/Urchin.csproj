@@ -45,6 +45,8 @@
     <Compile Include="Decryptor.cs" />
     <Compile Include="Cipher.cs" />
     <Compile Include="Encryptor.cs" />
+    <Compile Include="Extensions\BitArray\Reverse.cs" />
+    <Compile Include="Extensions\BitArray\Swap.cs" />
     <Compile Include="Interfaces\IBlockTransformer.cs" />
     <Compile Include="Interfaces\ICipher.cs" />
     <Compile Include="Interfaces\IKeySchedule.cs" />
