@@ -72,7 +72,9 @@ namespace Urchin
 
         public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
-            throw new NotImplementedException();
+            byte[] outputBuffer = new byte[inputCount];
+            TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
+            return outputBuffer;
         }
     }
 }
