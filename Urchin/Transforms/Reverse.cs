@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
+using Urchin.Extensions.BitArray.Reverse;
 
 namespace Urchin.Transforms
 {
@@ -19,14 +20,7 @@ namespace Urchin.Transforms
         public BitArray Transform(BitArray word)
         {
             BitArray result = new BitArray(word);
-            int length = result.Length;
-            int mid = (length / 2);
-            for (int i = 0; i < mid; i++)
-            {
-                bool bit = result[i];
-                result[i] = result[length - i - 1];
-                result[length - i - 1] = bit;
-            }
+            result.Reverse();
             return result;
         }
 

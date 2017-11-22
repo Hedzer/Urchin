@@ -23,7 +23,7 @@ namespace Urchin.Transforms
             return result;
         }
 
-        BitArray Reverse(BitArray word)
+        BitArray IWordTransformer.Reverse(BitArray word)
         {
             return Transform(word);
         }
