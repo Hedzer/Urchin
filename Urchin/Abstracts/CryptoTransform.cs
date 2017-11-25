@@ -25,7 +25,7 @@ namespace Urchin.Abstracts
             rounds = random[0] % 16 + 24;
         }
 
-        public static ICollection<Type> InitialTransforms { get; } = new ReadOnlyCollection<Type>(new List<Type> { typeof(Xor), typeof(Shuffle) });
+        public static ReadOnlyCollection<Type> InitialTransforms { get; } = new ReadOnlyCollection<Type>(new List<Type> { typeof(Xor), typeof(Shuffle) });
 
         public virtual int InputBlockSize => 512;
 
