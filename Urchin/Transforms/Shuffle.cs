@@ -32,7 +32,7 @@ namespace Urchin.Transforms
         public BitArray Seed { get; set; }
         public BitArray Entropy { get; set; }
 
-        public BitArray Reverse(BitArray word)
+        public BitArray Decode(BitArray word)
         {
             BitArray result = new BitArray(word);
             Int16[] random = new Int16[seedSize];
@@ -45,7 +45,7 @@ namespace Urchin.Transforms
             return result;
         }
 
-        public BitArray Transform(BitArray word)
+        public BitArray Encode(BitArray word)
         {
             BitArray result = new BitArray(word);
             Int16[] random = new Int16[seedSize];

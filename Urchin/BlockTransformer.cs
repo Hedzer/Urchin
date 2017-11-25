@@ -65,7 +65,7 @@ namespace Urchin
                 IWordTransformer transformer = Transforms[i % transformsCount];
                 transformer.WordSize = wordLength;
                 transformer.Seed = KeySchedule.GetNext(transformer.SeedSize);
-                BitArray transformed = transformer.Transform(word);
+                BitArray transformed = transformer.Encode(word);
                 for (int b = 0; i < wordLength; i++)
                 {
                     bits[offset + b] = word[b];

@@ -27,7 +27,7 @@ namespace Urchin
             foreach (IWordTransformer process in initialTransforms ) {
                 process.WordSize = bitCount;
                 process.Seed = keySchedule.GetNext(bitCount);
-                bits = process.Transform(bits);
+                bits = process.Encode(bits);
             }
 
             bits.CopyTo(block, 0);

@@ -16,16 +16,16 @@ namespace Urchin.Transforms
         public BitArray Seed { get; set; }
         public BitArray Entropy { get; set; }
 
-        public BitArray Transform(BitArray word)
+        public BitArray Encode(BitArray word)
         {
             BitArray result = new BitArray(word);
             result.Not();
             return result;
         }
 
-        BitArray IWordTransformer.Reverse(BitArray word)
+        public BitArray Decode(BitArray word)
         {
-            return Transform(word);
+            return Encode(word);
         }
     }
 }

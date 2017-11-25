@@ -18,8 +18,8 @@ namespace Urchin.Interfaces
         // Additional entropy used to mix bits
         BitArray Entropy { get; set; }
         // Cryptographic transformation in the forward direction
-        BitArray Transform(BitArray word);
+        BitArray Encode(BitArray word);
         // Cryptographic transformation in the reverse direction
-        BitArray Reverse(BitArray word);
+        BitArray Decode(BitArray word);
     }
 }
