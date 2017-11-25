@@ -10,7 +10,7 @@ using Urchin.Extensions.IEnumerable.Swap;
 
 namespace Urchin
 {
-    class BlockTransformer : IBlockTransformer
+    class BlockEncoder : IBlockEncoder
     {
         private static Type[] possibleTransforms = new Type[]
         {
@@ -19,11 +19,11 @@ namespace Urchin
             typeof(Reverse),
             typeof(Shuffle),
         };
-        private IWordTransformer[] transforms;
+        private IWordEncoder[] transforms;
         private int wordSize; // size of word in bits
 
         public IKeySchedule KeySchedule { get; set; }
-        public IWordTransformer[] Transforms
+        public IWordEncoder[] Transforms
         {
             get
             {
@@ -38,18 +38,18 @@ namespace Urchin
             }
         } 
 
-        public BlockTransformer(IKeySchedule keySchedule)
+        public BlockEncoder(IKeySchedule keySchedule)
         {
             KeySchedule = keySchedule ?? throw new ArgumentNullException();
             PseudoRandomize();
         }
 
-        public byte[] Reverse(byte[] block)
+        public byte[] Decode(byte[] block)
         {
             throw new NotImplementedException();
         }
 
-        public byte[] Transform(byte[] block)
+        public byte[] Encode(byte[] block)
         {
             byte[] result = new byte[block.Length];
             int bitsInBlock = block.Length * 8;
@@ -62,7 +62,7 @@ namespace Urchin
             {
                 BitArray word = words[i];
                 int wordLength = word.Length;
-                IWordTransformer transformer = Transforms[i % transformsCount];
+                IWordEncoder transformer = Transforms[i % transformsCount];
                 transformer.WordSize = wordLength;
                 transformer.Seed = KeySchedule.GetNext(transformer.SeedSize);
                 BitArray transformed = transformer.Encode(word);
@@ -119,7 +119,7 @@ namespace Urchin
             int count = PossibleTransforms.Length;
             for (int i = 0; i < count; i++)
             {
-                IWordTransformer transform = (IWordTransformer)Activator.CreateInstance(PossibleTransforms[i]);
+                IWordEncoder transform = (IWordEncoder)Activator.CreateInstance(PossibleTransforms[i]);
                 transform.WordSize = wordSize;
                 if (transform.SeedSize != 0)
                 {

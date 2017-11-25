@@ -23,8 +23,8 @@ namespace Urchin
             // Firt round, mandatory Xor and Shuffle
             BitArray bits = new BitArray(block);
             int bitCount = bits.Count;
-            ICollection<IWordTransformer> initialTransforms = InstatiateTransforms(InitialTransforms);
-            foreach (IWordTransformer process in initialTransforms ) {
+            ICollection<IWordEncoder> initialTransforms = InstatiateTransforms(InitialTransforms);
+            foreach (IWordEncoder process in initialTransforms ) {
                 process.WordSize = bitCount;
                 process.Seed = keySchedule.GetNext(bitCount);
                 bits = process.Encode(bits);
@@ -33,10 +33,10 @@ namespace Urchin
             bits.CopyTo(block, 0);
 
             // Next 24-40 rounds
-            BlockTransformer blockTransformer = new BlockTransformer(keySchedule);
+            BlockEncoder blockTransformer = new BlockEncoder(keySchedule);
             for (int i = 0; i < rounds; i++)
             {
-                block = blockTransformer.Transform(block);
+                block = blockTransformer.Encode(block);
                 blockTransformer.PseudoRandomize();
             }
 

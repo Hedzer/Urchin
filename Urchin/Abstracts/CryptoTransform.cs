@@ -44,12 +44,12 @@ namespace Urchin.Abstracts
 
         public abstract byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount);
 
-        protected List<IWordTransformer> InstatiateTransforms(ICollection<Type> transforms)
+        protected List<IWordEncoder> InstatiateTransforms(ICollection<Type> transforms)
         {
-            List<IWordTransformer> result = new List<IWordTransformer> { };
+            List<IWordEncoder> result = new List<IWordEncoder> { };
             foreach (Type item in transforms)
             {
-                result.Add((IWordTransformer)Activator.CreateInstance(item));
+                result.Add((IWordEncoder)Activator.CreateInstance(item));
             }
             return result;
         }

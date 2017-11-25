@@ -8,7 +8,7 @@ using Urchin.Interfaces;
 
 namespace Urchin.Transforms
 {
-    class Not : IWordTransformer
+    class Not : IWordEncoder
     {
         public int WordSize { get; set; }
         public int SeedSize { get; }

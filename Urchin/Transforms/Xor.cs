@@ -8,7 +8,7 @@ using Urchin.Interfaces;
 
 namespace Urchin.Transforms
 {
-    class Xor : IWordTransformer
+    class Xor : IWordEncoder
     {
         private int wordSize = 0;
         private int seedSize = 0;
