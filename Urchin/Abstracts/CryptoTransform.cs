@@ -7,6 +7,7 @@ using Urchin.Interfaces;
 using System.Security.Cryptography;
 using Urchin.Transforms;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace Urchin.Abstracts
 {
@@ -14,6 +15,11 @@ namespace Urchin.Abstracts
     {
         protected IKeySchedule keySchedule;
         protected int rounds;
+        protected enum Procedure
+        {
+            Encode,
+            Decode,
+        }
         public CryptoTransform(byte[] key, byte[] iv, IKeySchedule keySchedule)
         {
             IKeySchedule scheduler = keySchedule.CreateInstance();
@@ -43,6 +49,23 @@ namespace Urchin.Abstracts
         public abstract int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset);
 
         public abstract byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount);
+
+        protected virtual byte[] ApplyFirstBlockEncoding(byte[] block, Procedure procedure = Procedure.Encode)
+        {
+            byte[] result = new byte[block.Length];
+            BitArray bits = new BitArray(block);
+            int bitCount = bits.Count;
+            ICollection<IWordEncoder> initialTransforms = InstatiateTransforms(InitialTransforms);
+            initialTransforms = (procedure.Equals(Procedure.Encode) ? initialTransforms : initialTransforms.Reverse().ToArray());
+            foreach (IWordEncoder process in initialTransforms)
+            {
+                process.WordSize = bitCount;
+                process.Seed = keySchedule.GetNext(bitCount);
+                bits = (procedure.Equals(Procedure.Encode) ? process.Encode(bits) : process.Decode(bits));
+            }
+            bits.CopyTo(result, 0);
+            return result;
+        }
 
         protected List<IWordEncoder> InstatiateTransforms(ICollection<Type> transforms)
         {

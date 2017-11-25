@@ -20,26 +20,13 @@ namespace Urchin
         {
             byte[] block = new byte[inputCount];
             Array.ConstrainedCopy(inputBuffer, inputOffset, block, 0, inputCount);
-            // Firt round, mandatory Xor and Shuffle
-            BitArray bits = new BitArray(block);
-            int bitCount = bits.Count;
-            ICollection<IWordEncoder> initialTransforms = InstatiateTransforms(InitialTransforms);
-            foreach (IWordEncoder process in initialTransforms ) {
-                process.WordSize = bitCount;
-                process.Seed = keySchedule.GetNext(bitCount);
-                bits = process.Encode(bits);
-            }
 
-            bits.CopyTo(block, 0);
+            // initialize
+            block = InitializeBlock(block);
 
-            // Next 24-40 rounds
-            BlockEncoder blockTransformer = new BlockEncoder(keySchedule);
-            for (int i = 0; i < rounds; i++)
-            {
-                block = blockTransformer.Encode(block);
-                blockTransformer.PseudoRandomize();
-            }
-
+            // apply rounds
+            BlockEncoder blockEncoder = new BlockEncoder(keySchedule);
+            block = blockEncoder.Encode(block, rounds);
             block.CopyTo(outputBuffer, outputOffset);
 
             return inputCount;
@@ -50,6 +37,11 @@ namespace Urchin
             byte[] outputBuffer = new byte[inputCount];
             TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
             return outputBuffer;
+        }
+
+        protected virtual byte[] InitializeBlock(byte[] block)
+        {
+            return ApplyFirstBlockEncoding(block);
         }
 
     }

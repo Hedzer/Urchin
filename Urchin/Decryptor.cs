@@ -22,5 +22,10 @@ namespace Urchin
         {
             throw new NotImplementedException();
         }
+
+        protected virtual byte[] UninitializeBlock(byte[] block)
+        {
+            return ApplyFirstBlockEncoding(block, Procedure.Decode);
+        }
     }
 }

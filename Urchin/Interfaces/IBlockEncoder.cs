@@ -16,9 +16,13 @@ namespace Urchin.Interfaces
         // Instantiated transformers
         IWordEncoder[] Transforms { get; }
         // Transform a block
-        byte[] Encode(byte[] block);
+        byte[] EncodeBlock(byte[] block);
         // Reverse the transform
-        byte[] Decode(byte[] block);
+        byte[] DecodeBlock(byte[] block);
+        // Apply transforms iteratively
+        byte[] Encode(byte[] block, int iterations);
+        // Undo transforms iteratively
+        byte[] Decode(byte[] block, int iterations);
         // Mix, don't repeat the transform
         void PseudoRandomize();
     }

@@ -44,12 +44,12 @@ namespace Urchin
             PseudoRandomize();
         }
 
-        public byte[] Decode(byte[] block)
+        public byte[] DecodeBlock(byte[] block)
         {
             throw new NotImplementedException();
         }
 
-        public byte[] Encode(byte[] block)
+        public byte[] EncodeBlock(byte[] block)
         {
             byte[] result = new byte[block.Length];
             int bitsInBlock = block.Length * 8;
@@ -74,6 +74,21 @@ namespace Urchin
             }
             bits.CopyTo(result, 0);
             return result;
+        }
+
+        public byte[] Encode(byte[] block, int iterations)
+        {
+            for (int i = 0; i < iterations; i++)
+            {
+                block = EncodeBlock(block);
+                PseudoRandomize();
+            }
+            return block;
+        }
+
+        public byte[] Decode(byte[] block, int iterations)
+        {
+            throw new NotImplementedException();
         }
 
         public void PseudoRandomize()
