@@ -8,6 +8,7 @@ using Urchin.Interfaces;
 using Urchin.Transforms;
 using System.Collections;
 using Urchin.Abstracts;
+using System.Collections.ObjectModel;
 
 namespace Urchin
 {
@@ -22,7 +23,7 @@ namespace Urchin
             // Firt round, mandatory Xor and Shuffle
             BitArray bits = new BitArray(block);
             int bitCount = bits.Count;
-            IWordTransformer[] initialTransforms = new IWordTransformer[] { (IWordTransformer)new Xor(), (IWordTransformer)new Shuffle() };
+            ICollection<IWordTransformer> initialTransforms = InstatiateTransforms(InitialTransforms);
             foreach (IWordTransformer process in initialTransforms ) {
                 process.WordSize = bitCount;
                 process.Seed = keySchedule.GetNext(bitCount);
@@ -50,5 +51,6 @@ namespace Urchin
             TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
             return outputBuffer;
         }
+
     }
 }

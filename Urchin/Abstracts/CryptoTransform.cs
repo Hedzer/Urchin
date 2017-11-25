@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
 using System.Security.Cryptography;
+using Urchin.Transforms;
+using System.Collections.ObjectModel;
 
 namespace Urchin.Abstracts
 {
@@ -23,6 +25,8 @@ namespace Urchin.Abstracts
             rounds = random[0] % 16 + 24;
         }
 
+        public static ICollection<Type> InitialTransforms { get; } = new ReadOnlyCollection<Type>(new List<Type> { typeof(Xor), typeof(Shuffle) });
+
         public virtual int InputBlockSize => 512;
 
         public virtual int OutputBlockSize => 512;
@@ -39,5 +43,15 @@ namespace Urchin.Abstracts
         public abstract int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset);
 
         public abstract byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount);
+
+        protected List<IWordTransformer> InstatiateTransforms(ICollection<Type> transforms)
+        {
+            List<IWordTransformer> result = new List<IWordTransformer> { };
+            foreach (Type item in transforms)
+            {
+                result.Add((IWordTransformer)Activator.CreateInstance(item));
+            }
+            return result;
+        }
     }
 }
