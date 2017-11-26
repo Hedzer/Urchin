@@ -14,10 +14,5 @@ namespace UrchinTests
         {
             
         }
-        [TestMethod]
-        public void TestMethod1()
-        {
-            Urchin.Cipher U = new Urchin.Cipher();
-        }
     }
 }
