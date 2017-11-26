@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
 
-namespace Urchin.Transforms
+namespace Urchin.Encoders
 {
     class EncoderState : IWordEncoder
     {

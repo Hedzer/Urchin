@@ -48,6 +48,7 @@
     <Compile Include="Encryptor.cs" />
     <Compile Include="Extensions\BitArray\Reverse.cs" />
     <Compile Include="Extensions\BitArray\Swap.cs" />
+    <Compile Include="Extensions\BitArray\Words.cs" />
     <Compile Include="Extensions\IEnumerable\Swap.cs" />
     <Compile Include="Interfaces\IBlockEncoder.cs" />
     <Compile Include="Interfaces\ICipher.cs" />
@@ -55,10 +56,12 @@
     <Compile Include="Interfaces\IWordEncoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KeyScheduler.cs" />
-    <Compile Include="Transforms\Not.cs" />
-    <Compile Include="Transforms\Reverse.cs" />
-    <Compile Include="Transforms\Shuffle.cs" />
-    <Compile Include="Transforms\Xor.cs" />
+    <Compile Include="Encoders\EncoderState.cs" />
+    <Compile Include="Encoders\Not.cs" />
+    <Compile Include="Encoders\Reverse.cs" />
+    <Compile Include="Encoders\Shuffle.cs" />
+    <Compile Include="Encoders\Xor.cs" />
+    <Compile Include="Types\RoundSnapshot.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

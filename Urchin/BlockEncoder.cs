@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Urchin.Types;
 using Urchin.Interfaces;
-using Urchin.Transforms;
+using Urchin.Encoders;
 using Urchin.Extensions.IEnumerable.Swap;
 using Urchin.Extensions.BitArray.Words;
 

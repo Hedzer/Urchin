@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Urchin.Interfaces;
 using Urchin.Extensions.BitArray.Swap;
 
-namespace Urchin.Transforms
+namespace Urchin.Encoders
 {
     class Shuffle : IWordEncoder
     {

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
+using Urchin.Extensions.BitArray.Reverse;
 
-namespace Urchin.Transforms
+namespace Urchin.Encoders
 {
-    class Not : IWordEncoder
+    class Reverse : IWordEncoder
     {
         public int WordSize { get; set; }
         public int SeedSize { get; }
@@ -19,7 +20,7 @@ namespace Urchin.Transforms
         public BitArray Encode(BitArray word)
         {
             BitArray result = new BitArray(word);
-            result.Not();
+            result.Reverse();
             return result;
         }
 

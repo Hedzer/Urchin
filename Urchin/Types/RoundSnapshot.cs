@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Urchin.Interfaces;
-using Urchin.Transforms;
+using Urchin.Encoders;
 
 namespace Urchin.Types
 {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Urchin.Interfaces;
-using Urchin.Transforms;
+using Urchin.Encoders;
 using System.Collections;
 using Urchin.Abstracts;
 using System.Collections.ObjectModel;
