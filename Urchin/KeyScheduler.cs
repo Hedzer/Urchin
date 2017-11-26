@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 namespace Urchin
 {
-    class KeyScheduler : KeySchedule
+    public class KeyScheduler : KeySchedule
     {
         private int currentStep = 0;
         private List<byte> buffer = new List<byte> { };
