@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Urchin.Interfaces;
 using Urchin.Transforms;
 using Urchin.Extensions.IEnumerable.Swap;
+using Urchin.Extensions.BitArray.Words;
 
 namespace Urchin
 {
@@ -52,26 +53,22 @@ namespace Urchin
         public byte[] EncodeBlock(byte[] block)
         {
             byte[] result = new byte[block.Length];
+            int transformsCount = Transforms.Length;
             int bitsInBlock = block.Length * 8;
             BitArray bits = new BitArray(bitsInBlock);
-            List<BitArray> words = BreakIntoWords(block);
-            int wordCount = words.Count;
-            int transformsCount = Transforms.Length;
+            List<BitArray> words = new BitArray(block).ToWords(wordSize);
             int offset = 0;
-            for (int i = 0; i < wordCount; i++)
-            {
-                BitArray word = words[i];
+            words.EachWord((BitArray word, int wordIndex) => {
                 int wordLength = word.Length;
-                IWordEncoder transformer = Transforms[i % transformsCount];
-                transformer.WordSize = wordLength;
-                transformer.Seed = KeySchedule.GetNext(transformer.SeedSize);
-                BitArray transformed = transformer.Encode(word);
-                for (int b = 0; i < wordLength; i++)
-                {
-                    bits[offset + b] = word[b];
+                IWordEncoder encoder = Transforms[wordIndex % transformsCount];
+                encoder.WordSize = wordLength;
+                encoder.Seed = KeySchedule.GetNext(encoder.SeedSize);
+                BitArray encoded = encoder.Encode(word);
+                encoded.EachBit((bool bit, int bitIndex) => {
+                    bits[offset + bitIndex] = bit;
                     offset++;
-                }
-            }
+                });
+            });
             bits.CopyTo(result, 0);
             return result;
         }
@@ -96,30 +93,6 @@ namespace Urchin
             NewWordSize();
             InstantiateWordTransforms();
             ShuffleWordTransforms();
-        }
-
-        private List<BitArray> BreakIntoWords(byte[] block)
-        {
-            List<BitArray> result = new List<BitArray> { };
-            int bitsInBlock = block.Length * 8;
-            int size = (int)Math.Ceiling((double)bitsInBlock / wordSize);
-            int lastBlockSize = bitsInBlock % wordSize;
-            BitArray bits = new BitArray(block);
-            int offset = 0;
-            for (int i = 0; i < size; i++)
-            {
-                bool isLastWord = (i == size - 1);
-                int wordSize = isLastWord ? lastBlockSize : this.wordSize;
-                BitArray word = new BitArray(wordSize);
-                for (int position = 0; i < wordSize; i++)
-                {
-                    word[position] = bits[offset + position];
-                    offset++;
-                    result.Add(word);
-                }
-            }
-
-            return result;
         }
 
         private void NewWordSize()

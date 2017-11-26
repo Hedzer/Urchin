@@ -40,5 +40,24 @@ namespace Urchin.Extensions.BitArray.Words
 
             return new System.Collections.BitArray(values.ToArray());
         }
+
+        public delegate void EachItemAction<ItemType>(ItemType item, int index);
+        public static void EachWord(this List<System.Collections.BitArray> instance, EachItemAction<System.Collections.BitArray> action)
+        {
+            int wordCount = instance.Count;
+            for (int index = 0; index < wordCount; index++)
+            {
+                action(instance[index], index);                
+            }
+        }
+
+        public static void EachBit(this System.Collections.BitArray instance, EachItemAction<bool> action)
+        {
+            int bitCount = instance.Length;
+            for (int index = 0; index < bitCount; index++)
+            {
+                action(instance.Get(index), index);
+            }
+        }
     }
 }
