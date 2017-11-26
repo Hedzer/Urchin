@@ -24,6 +24,8 @@ namespace Urchin
         private IWordEncoder[] transforms;
         private int wordSize; // size of word in bits
 
+        public static readonly int MinWordSize = 16;
+        public static readonly int MaxWordSize = 64;
         public IKeySchedule KeySchedule { get; set; }
         public IWordEncoder[] Transforms
         {
@@ -146,7 +148,7 @@ namespace Urchin
         {
             byte[] random = new byte[1];
             KeySchedule.GetNext(8).CopyTo(random, 0);
-            wordSize = 24 + random[0] % 32;
+            wordSize = (MinWordSize + random[0]) % MaxWordSize;
         }
 
         private void InstantiateWordTransforms()
