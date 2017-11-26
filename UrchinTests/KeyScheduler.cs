@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Cryptography;
 using System.Collections;
 using Urchin;
-using Urchin.Extensions.BitArray.ValueEquals;
 
 namespace UrchinTests
 {
@@ -18,9 +17,9 @@ namespace UrchinTests
             HashAlgorithm hasher = new SHA512Managed();
             iv = hasher.ComputeHash(new byte[] { 1, 2, 3, 4, 5 });
             key = hasher.ComputeHash(iv);
+            instance.Key = key;
+            instance.IV = iv;
         }
-
-
 
         [TestMethod]
         public void Property_GetSet_Key()
@@ -36,7 +35,7 @@ namespace UrchinTests
         {
             instance.IV = iv;
             byte[] duplicate = new byte[iv.Length];
-            key.CopyTo(duplicate, 0);
+            iv.CopyTo(duplicate, 0);
             CollectionAssert.AreEqual(instance.IV, duplicate);
         }
 
@@ -62,7 +61,7 @@ namespace UrchinTests
 
             for (int i = 0; i < 100; i++)
             {
-                Assert.IsTrue(a.GetNext(i).ValuesEqual(b.GetNext(i)));
+                CollectionAssert.AreEqual(a.GetNext(i), b.GetNext(i));
             }
         }
 
@@ -78,7 +77,7 @@ namespace UrchinTests
             for (int i = 32; i <= 100; i++)
             {
                 BitArray current = a.GetNext(i);
-                Assert.IsFalse(a.GetNext(i).ValuesEqual(current));
+                CollectionAssert.AreNotEqual(a.GetNext(i), current);
                 Assert.AreEqual(current.Length, i);
             }
         }
@@ -100,7 +99,7 @@ namespace UrchinTests
             KeyScheduler b = (KeyScheduler)a.Clone();
             for (int i = 0; i < 10; i++)
             {
-                Assert.IsTrue(a.GetNext(i).ValuesEqual(b.GetNext(i)));
+                CollectionAssert.AreEqual(a.GetNext(i), b.GetNext(i));
             }
         }
     }

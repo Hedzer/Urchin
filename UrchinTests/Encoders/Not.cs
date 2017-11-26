@@ -2,7 +2,6 @@
 using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Urchin.Interfaces;
-using Urchin.Extensions.BitArray.ValueEquals;
 using Urchin;
 
 
@@ -52,7 +51,7 @@ namespace UrchinTests.Encoders
             BitArray encoded = instance.Encode(original);
             BitArray decoded = instance.Decode(encoded);
             Assert.AreEqual(original.Length, decoded.Length);
-            Assert.IsTrue(original.ValuesEqual(decoded));
+            CollectionAssert.AreEqual(original, decoded);
             Assert.AreNotEqual(encoded, decoded);
         }
 
@@ -62,7 +61,7 @@ namespace UrchinTests.Encoders
             BitArray original = new BitArray(new bool[] { true, true, true, false, false, false });
             BitArray encoded = instance.Encode(original);
             Assert.AreEqual(original.Length, encoded.Length);
-            Assert.IsFalse(encoded.ValuesEqual(original));
+            CollectionAssert.AreNotEqual(encoded, original);
         }
     }
 }
