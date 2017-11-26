@@ -15,12 +15,25 @@ namespace Urchin
 
         public override int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
-            throw new NotImplementedException();
+            byte[] block = new byte[inputCount];
+            Array.ConstrainedCopy(inputBuffer, inputOffset, block, 0, inputCount);
+
+            // Decode rounds
+            BlockEncoder blockEncoder = new BlockEncoder(keySchedule);
+            block = blockEncoder.Decode(block, rounds);
+
+            // Un-init block
+            block = UninitializeBlock(block);
+            block.CopyTo(outputBuffer, outputOffset);
+
+            return inputCount;
         }
 
         public override byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
-            throw new NotImplementedException();
+            byte[] outputBuffer = new byte[inputCount];
+            TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
+            return outputBuffer;
         }
 
         protected virtual byte[] UninitializeBlock(byte[] block)

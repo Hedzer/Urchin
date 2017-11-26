@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Urchin.Types;
 using Urchin.Interfaces;
 using Urchin.Transforms;
 using Urchin.Extensions.IEnumerable.Swap;
@@ -45,9 +46,27 @@ namespace Urchin
             PseudoRandomize();
         }
 
-        public byte[] DecodeBlock(byte[] block)
+        public RoundSnapshot GetRoundSnapshot(int blockLength)
         {
-            throw new NotImplementedException();
+            RoundSnapshot result = new RoundSnapshot();
+            result.WordSize = wordSize;
+            int transformsCount = Transforms.Length;
+            int bitsInBlock = blockLength * 8;
+            int remainder = bitsInBlock % wordSize;
+            bool hasRemainder = remainder == 0;
+            int wordCount = (int)Math.Ceiling((double)bitsInBlock / wordSize);
+            for (int index = 0; index < wordCount; index++)
+            {
+                int wordLength = (index == wordCount - 1  && hasRemainder ? remainder : wordSize);
+                EncoderState encoder = new EncoderState
+                {
+                    WordEncoder = transforms[index % transformsCount].GetType(),
+                    WordSize = wordLength,
+                };
+                encoder.Seed = KeySchedule.GetNext(encoder.SeedSize);
+                result.Transformations.Add(encoder);
+            }
+            return result;
         }
 
         public byte[] EncodeBlock(byte[] block)
@@ -75,17 +94,45 @@ namespace Urchin
 
         public byte[] Encode(byte[] block, int iterations)
         {
+            byte[] result = block;
             for (int i = 0; i < iterations; i++)
             {
-                block = EncodeBlock(block);
+                result = EncodeBlock(result);
                 PseudoRandomize();
             }
-            return block;
+            return result;
+        }
+
+        public byte[] DecodeBlock(byte[] block, RoundSnapshot snapshot)
+        {
+            byte[] result = new byte[block.Length];
+            List<BitArray> buffer = new List<BitArray> { };
+            List<BitArray> words = new BitArray(block).ToWords(snapshot.WordSize);
+            for (int i = words.Count; i > 0; i--)
+            {
+                IWordEncoder decoder = snapshot.Transformations[i];
+                BitArray decoded = decoder.Decode(words[i]);
+                buffer.Insert(0, decoded);
+            }
+            buffer.ToBitArray().CopyTo(result, 0);
+            return result;
         }
 
         public byte[] Decode(byte[] block, int iterations)
         {
-            throw new NotImplementedException();
+            byte[] result = block;
+            List<RoundSnapshot> rounds = new List<RoundSnapshot> { };
+            for (int i = 0; i < iterations; i++)
+            {
+                rounds.Add(GetRoundSnapshot(block.Length));
+                PseudoRandomize();
+            }
+            rounds.Reverse();
+            rounds.ForEach((RoundSnapshot round) => {
+                result = DecodeBlock(result, round);
+            });
+
+            return result;
         }
 
         public void PseudoRandomize()

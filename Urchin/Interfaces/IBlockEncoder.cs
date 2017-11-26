@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Urchin.Types;
 
 namespace Urchin.Interfaces
 {
@@ -17,8 +18,10 @@ namespace Urchin.Interfaces
         IWordEncoder[] Transforms { get; }
         // Transform a block
         byte[] EncodeBlock(byte[] block);
-        // Reverse the transform
-        byte[] DecodeBlock(byte[] block);
+        // Undo the transformations
+        byte[] DecodeBlock(byte[] block, RoundSnapshot snapshot);
+        // Get a snapshot of the round for a given block
+        RoundSnapshot GetRoundSnapshot(int blockLength);
         // Apply transforms iteratively
         byte[] Encode(byte[] block, int iterations);
         // Undo transforms iteratively
