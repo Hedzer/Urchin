@@ -46,7 +46,6 @@ namespace Urchin.Abstracts
 
         public abstract int CurrentStep { get; }
         public abstract BitArray GetNext(int bitCount);
-        public abstract IKeySchedule CreateInstance();
         public abstract object Clone();
 
         protected virtual bool CreateSecret()

@@ -46,9 +46,9 @@ namespace Urchin
             PseudoRandomize();
         }
 
-        public RoundSnapshot GetRoundSnapshot(int blockLength)
+        public EncodingRound GetRoundSnapshot(int blockLength)
         {
-            RoundSnapshot result = new RoundSnapshot();
+            EncodingRound result = new EncodingRound();
             result.WordSize = wordSize;
             int transformsCount = Transforms.Length;
             int bitsInBlock = blockLength * 8;
@@ -58,7 +58,7 @@ namespace Urchin
             for (int index = 0; index < wordCount; index++)
             {
                 int wordLength = (index == wordCount - 1  && hasRemainder ? remainder : wordSize);
-                EncoderState encoder = new EncoderState
+                EncoderProxy encoder = new EncoderProxy
                 {
                     WordEncoder = transforms[index % transformsCount].GetType(),
                     WordSize = wordLength,
@@ -103,7 +103,7 @@ namespace Urchin
             return result;
         }
 
-        public byte[] DecodeBlock(byte[] block, RoundSnapshot snapshot)
+        public byte[] DecodeBlock(byte[] block, EncodingRound snapshot)
         {
             byte[] result = new byte[block.Length];
             List<BitArray> buffer = new List<BitArray> { };
@@ -121,14 +121,14 @@ namespace Urchin
         public byte[] Decode(byte[] block, int iterations)
         {
             byte[] result = block;
-            List<RoundSnapshot> rounds = new List<RoundSnapshot> { };
+            List<EncodingRound> rounds = new List<EncodingRound> { };
             for (int i = 0; i < iterations; i++)
             {
                 rounds.Add(GetRoundSnapshot(block.Length));
                 PseudoRandomize();
             }
             rounds.Reverse();
-            rounds.ForEach((RoundSnapshot round) => {
+            rounds.ForEach((EncodingRound round) => {
                 result = DecodeBlock(result, round);
             });
 

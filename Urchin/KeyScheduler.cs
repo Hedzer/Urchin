@@ -63,14 +63,9 @@ namespace Urchin
             return true;
         }
 
-        public override IKeySchedule CreateInstance()
-        {
-            return new KeyScheduler();
-        }
-
         public override object Clone()
         {
-            KeyScheduler clone = (KeyScheduler)CreateInstance();
+            KeyScheduler clone = (KeyScheduler)Activator.CreateInstance(GetType());
             clone.Key = Key;
             clone.IV = IV;
             clone.currentStep = currentStep;

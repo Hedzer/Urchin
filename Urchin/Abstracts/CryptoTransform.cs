@@ -22,7 +22,7 @@ namespace Urchin.Abstracts
         }
         public CryptoTransform(byte[] key, byte[] iv, IKeySchedule keySchedule)
         {
-            IKeySchedule scheduler = keySchedule.CreateInstance();
+            IKeySchedule scheduler = (IKeySchedule)Activator.CreateInstance(keySchedule.GetType());
             scheduler.Key = key;
             scheduler.IV = iv;
             this.keySchedule = scheduler;

@@ -13,6 +13,5 @@ namespace Urchin.Interfaces
         byte[] IV { get; set;  }
         Int32 CurrentStep { get; }
         BitArray GetNext(int bitCount);
-        IKeySchedule CreateInstance();
     }
 }

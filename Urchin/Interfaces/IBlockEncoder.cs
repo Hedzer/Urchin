@@ -19,9 +19,9 @@ namespace Urchin.Interfaces
         // Transform a block
         byte[] EncodeBlock(byte[] block);
         // Undo the transformations
-        byte[] DecodeBlock(byte[] block, RoundSnapshot snapshot);
+        byte[] DecodeBlock(byte[] block, EncodingRound snapshot);
         // Get a snapshot of the round for a given block
-        RoundSnapshot GetRoundSnapshot(int blockLength);
+        EncodingRound GetRoundSnapshot(int blockLength);
         // Apply transforms iteratively
         byte[] Encode(byte[] block, int iterations);
         // Undo transforms iteratively
