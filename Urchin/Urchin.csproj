@@ -40,13 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\CryptoTransform.cs" />
-    <Compile Include="Abstract\KeySchedule.cs" />
+    <Compile Include="Abstracts\CryptoTransform.cs" />
+    <Compile Include="Abstracts\KeySchedule.cs" />
     <Compile Include="BlockEncoder.cs" />
     <Compile Include="Decryptor.cs" />
     <Compile Include="Cipher.cs" />
     <Compile Include="Encoders\Substitution.cs" />
     <Compile Include="Encryptor.cs" />
+    <Compile Include="Extensions\BitArray\ValuesEqual.cs" />
     <Compile Include="Extensions\BitArray\Reverse.cs" />
     <Compile Include="Extensions\BitArray\Swap.cs" />
     <Compile Include="Extensions\BitArray\Words.cs" />
