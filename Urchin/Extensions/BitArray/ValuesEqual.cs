@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Urchin.Extensions.BitArray.Equals
+namespace Urchin.Extensions.BitArray.ValueEquals
 {
     public static class EqualsExt
     {
-        public static bool Equals(this System.Collections.BitArray instance, System.Collections.BitArray bitArray)
+        public static bool ValuesEqual(this System.Collections.BitArray instance, System.Collections.BitArray bitArray)
         {
             int length = instance.Length;
             if (bitArray == null) return false;
