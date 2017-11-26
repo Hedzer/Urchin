@@ -13,3 +13,4 @@ obj/Debug/Urchin.csprojResolveAssemblyReference.cache
 Sublime Style Settings.sdsettings
 *.cache
 *.csproj.CoreCompileInputs.cache
+UrchinTests/obj/Debug/UrchinTests.csproj.CoreCompileInputs.cache
