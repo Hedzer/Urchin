@@ -10,7 +10,7 @@ namespace Urchin.Types
 {
     public class EncodingRound
     {
-        private List<EncoderProxy> transformations;
+        private List<EncoderProxy> transformations = new List<EncoderProxy>() { };
         private int wordSize;
 
         public int WordSize { get => wordSize; set => wordSize = value; }

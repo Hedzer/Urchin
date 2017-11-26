@@ -154,6 +154,7 @@ namespace Urchin
         private void InstantiateWordTransforms()
         {
             int count = PossibleTransforms.Length;
+            transforms = new IWordEncoder[count];
             for (int i = 0; i < count; i++)
             {
                 IWordEncoder transform = (IWordEncoder)Activator.CreateInstance(PossibleTransforms[i]);
