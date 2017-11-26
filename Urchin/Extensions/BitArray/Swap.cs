@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Urchin.Extensions.BitArray.Swap
 {
-    static class SwapExt
+    public static class SwapExt
     {
         public static void Swap(this System.Collections.BitArray instance, int indexA, int indexB)
         {

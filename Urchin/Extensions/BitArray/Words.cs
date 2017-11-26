@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Urchin.Extensions.BitArray.Words
 {
-    static class Words
+    public static class Words
     {
         public static List<System.Collections.BitArray> ToWords(this System.Collections.BitArray instance, int bitsPerWord)
         {

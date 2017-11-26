@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Urchin.Extensions.BitArray.Reverse
 {
-    static class ReverseExt
+    public static class ReverseExt
     {
         public static void Reverse(this System.Collections.BitArray instance)
         {
