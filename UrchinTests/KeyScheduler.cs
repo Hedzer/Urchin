@@ -23,25 +23,25 @@ namespace UrchinTests
 
 
         [TestMethod]
-        public void GetSetKey()
+        public void Property_GetSet_Key()
         {
             instance.Key = key;
             byte[] duplicate = new byte[key.Length];
             key.CopyTo(duplicate, 0);
-            Assert.AreEqual(instance.Key, duplicate);
+            CollectionAssert.AreEqual(instance.Key, duplicate);
         }
 
         [TestMethod]
-        public void GetSetIV()
+        public void Property_GetSet_IV()
         {
             instance.IV = iv;
             byte[] duplicate = new byte[iv.Length];
             key.CopyTo(duplicate, 0);
-            Assert.AreEqual(instance.IV, duplicate);
+            CollectionAssert.AreEqual(instance.IV, duplicate);
         }
 
         [TestMethod]
-        public void GetSecret()
+        public void Property_Get_Secret()
         {
             Assert.AreEqual(instance.Secret.GetType(), (new byte[0]).GetType());
         }

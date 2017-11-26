@@ -8,13 +8,13 @@ using Urchin;
 
 namespace UrchinTests.Encoders
 {
-    [TestClass, TestCategory("Encoders"), TestCategory("Encoders.Not")]
+    [TestClass, TestCategory("Encoders.Not")]
     public class Not
     {
         public static IWordEncoder instance = new Urchin.Encoders.Not();
 
         [TestMethod]
-        public void GetSet_WordSize()
+        public void Property_GetSet_WordSize()
         {
             for (int i = BlockEncoder.MinWordSize; i < BlockEncoder.MaxWordSize; i++)
             {
@@ -24,13 +24,13 @@ namespace UrchinTests.Encoders
         }
 
         [TestMethod]
-        public void Get_SeedSize()
+        public void Property_Get_SeedSize()
         {
             Assert.AreEqual(instance.SeedSize, 0);
         }
 
         [TestMethod]
-        public void GetSet_Seed()
+        public void Property_GetSet_Seed()
         {
             BitArray seed = new BitArray(instance.SeedSize);
             instance.Seed = seed;
@@ -38,7 +38,7 @@ namespace UrchinTests.Encoders
         }
 
         [TestMethod]
-        public void GetSet_Entropy()
+        public void Property_GetSet_Entropy()
         {
             BitArray entropy = new BitArray(instance.SeedSize);
             instance.Entropy = entropy;
