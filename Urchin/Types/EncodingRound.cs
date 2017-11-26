@@ -8,9 +8,12 @@ using Urchin.Encoders;
 
 namespace Urchin.Types
 {
-    class RoundSnapshot
+    class EncodingRound
     {
-        public List<EncoderState> Transformations;
-        public int WordSize;
+        private List<EncoderProxy> transformations;
+        private int wordSize;
+
+        public int WordSize { get => wordSize; set => wordSize = value; }
+        internal List<EncoderProxy> Transformations { get => transformations; set => transformations = value; }
     }
 }
