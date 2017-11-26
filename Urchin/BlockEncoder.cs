@@ -12,7 +12,7 @@ using Urchin.Extensions.BitArray.Words;
 
 namespace Urchin
 {
-    class BlockEncoder : IBlockEncoder
+    public class BlockEncoder : IBlockEncoder
     {
         private static Type[] possibleTransforms = new Type[]
         {
