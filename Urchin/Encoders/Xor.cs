@@ -8,7 +8,7 @@ using Urchin.Interfaces;
 
 namespace Urchin.Encoders
 {
-    class Xor : IWordEncoder
+    public class Xor : IWordEncoder
     {
         private int wordSize = 0;
         private int seedSize = 0;

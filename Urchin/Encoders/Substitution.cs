@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 namespace Urchin.Encoders
 {
-    class Substitution : IWordEncoder
+    public class Substitution : IWordEncoder
     {
         // Minimum word size in bits for thr table
         private static byte[] tableWordSizes = new byte[] { 8, 7, 6, 5, 4, 3, 2 };

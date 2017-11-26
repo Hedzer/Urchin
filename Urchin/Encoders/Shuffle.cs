@@ -9,7 +9,7 @@ using Urchin.Extensions.BitArray.Swap;
 
 namespace Urchin.Encoders
 {
-    class Shuffle : IWordEncoder
+    public class Shuffle : IWordEncoder
     {
         private int wordSize = 0;
         private int seedSize = 0;

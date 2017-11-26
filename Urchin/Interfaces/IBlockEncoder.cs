@@ -8,7 +8,7 @@ using Urchin.Types;
 
 namespace Urchin.Interfaces
 {
-    interface IBlockEncoder
+    public interface IBlockEncoder
     {
         // Key schedule to use as a source of randomness
         IKeySchedule KeySchedule { get; set; }

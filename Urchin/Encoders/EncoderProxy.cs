@@ -8,7 +8,7 @@ using Urchin.Interfaces;
 
 namespace Urchin.Encoders
 {
-    class EncoderProxy : IWordEncoder
+    public class EncoderProxy : IWordEncoder
     {
         private IWordEncoder encoder;
         private Type encoderType;

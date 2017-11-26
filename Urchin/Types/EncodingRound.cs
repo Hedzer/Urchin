@@ -8,7 +8,7 @@ using Urchin.Encoders;
 
 namespace Urchin.Types
 {
-    class EncodingRound
+    public class EncodingRound
     {
         private List<EncoderProxy> transformations;
         private int wordSize;

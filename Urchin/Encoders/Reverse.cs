@@ -9,7 +9,7 @@ using Urchin.Extensions.BitArray.Reverse;
 
 namespace Urchin.Encoders
 {
-    class Reverse : IWordEncoder
+    public class Reverse : IWordEncoder
     {
         public int WordSize { get; set; }
         public int SeedSize { get; }

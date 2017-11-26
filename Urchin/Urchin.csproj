@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstracts\CryptoTransform.cs" />
-    <Compile Include="Abstracts\KeySchedule.cs" />
+    <Compile Include="Abstract\CryptoTransform.cs" />
+    <Compile Include="Abstract\KeySchedule.cs" />
     <Compile Include="BlockEncoder.cs" />
     <Compile Include="Decryptor.cs" />
     <Compile Include="Cipher.cs" />

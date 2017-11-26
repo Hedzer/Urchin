@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Urchin.Interfaces
 {
-    interface IWordEncoder
+    public interface IWordEncoder
     {
         // How many bits to a word
         int WordSize { get; set; }
