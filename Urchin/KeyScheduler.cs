@@ -43,10 +43,13 @@ namespace Urchin
                 byte[] hash = hasher.ComputeHash(entropy.ToArray());
                 buffer.AddRange(hash);
                 int hashLength = hash.Length;
-                int a = hash[currentStep % hashLength];
-                int b = hash[a % hashLength];
+                int hashesLength = hashes.Length;
+                int a = hash[currentStep % hashLength] % hashesLength;
+                int b = hash[a % hashLength] % hashesLength;
                 hashes.Swap(a, b);
-                new BitArray(state).Xor(new BitArray(hash)).CopyTo(state, 0);
+                byte[] hash64 = new byte[64];
+                hash.CopyTo(hash64, 0);
+                new BitArray(state).Xor(new BitArray(hash64)).CopyTo(state, 0);
                 currentStep++;
             } while (byteCount > buffer.Count);
 
@@ -69,6 +72,11 @@ namespace Urchin
             clone.Key = Key;
             clone.IV = IV;
             clone.currentStep = currentStep;
+            clone.state = new byte[state.Length];
+            state.CopyTo(clone.state, 0);
+            clone.buffer = new List<byte>(buffer);
+            clone.hashes = new HashAlgorithm[hashes.Length];
+            hashes.CopyTo(clone.hashes, 0);
             return clone;
         }
 
