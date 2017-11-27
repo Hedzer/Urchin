@@ -23,10 +23,10 @@ namespace Urchin.Extensions.BitArray.Words
                 System.Collections.BitArray word = new System.Collections.BitArray(wordSize);
                 for (int position = 0; i < wordSize; i++)
                 {
-                    word[position] = instance[offset + position];
+                    word[position] = instance[offset];
                     offset++;
-                    result.Add(word);
                 }
+                result.Add(word);
             }
 
             return result;

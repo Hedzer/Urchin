@@ -23,7 +23,7 @@ namespace Urchin.Encoders
             set
             {
                 wordSize = value;
-                seedSize = value * 16;
+                seedSize = value * 32;
             }
         }
 
@@ -35,11 +35,11 @@ namespace Urchin.Encoders
         public BitArray Decode(BitArray word)
         {
             BitArray result = new BitArray(word);
-            Int16[] random = new Int16[seedSize];
+            int[] random = new int[seedSize];
             Seed.CopyTo(random, 0);
             for (int i = wordSize; i > 0; i--)
             {
-                int r = random[i] % wordSize;
+                int r = Math.Abs(random[i]) % wordSize;
                 result.Swap(r, i);
             }
             return result;
@@ -48,11 +48,11 @@ namespace Urchin.Encoders
         public BitArray Encode(BitArray word)
         {
             BitArray result = new BitArray(word);
-            Int16[] random = new Int16[seedSize];
+            int[] random = new int[seedSize];
             Seed.CopyTo(random, 0);
             for (int i = 0; i < wordSize; i++)
             {
-                int r = random[i] % wordSize;
+                int r = Math.Abs(random[i]) % wordSize;
                 result.Swap(i, r);
             }
             return result;

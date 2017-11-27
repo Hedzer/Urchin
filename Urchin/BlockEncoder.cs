@@ -86,7 +86,7 @@ namespace Urchin
                 encoder.Seed = KeySchedule.GetNext(encoder.SeedSize);
                 BitArray encoded = encoder.Encode(word);
                 encoded.EachBit((bool bit, int bitIndex) => {
-                    bits[offset + bitIndex] = bit;
+                    bits[offset] = bit;
                     offset++;
                 });
             });
@@ -148,7 +148,7 @@ namespace Urchin
         {
             byte[] random = new byte[1];
             KeySchedule.GetNext(8).CopyTo(random, 0);
-            wordSize = (MinWordSize + random[0]) % MaxWordSize;
+            wordSize = (MinWordSize + random[0] % (MaxWordSize - MinWordSize + 1));
         }
 
         private void InstantiateWordTransforms()

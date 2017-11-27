@@ -14,6 +14,6 @@ namespace Urchin.Types
         private int wordSize;
 
         public int WordSize { get => wordSize; set => wordSize = value; }
-        internal List<EncoderProxy> Transformations { get => transformations; set => transformations = value; }
+        public List<EncoderProxy> Transformations { get => transformations; set => transformations = value; }
     }
 }
