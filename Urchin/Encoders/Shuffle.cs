@@ -37,7 +37,7 @@ namespace Urchin.Encoders
             BitArray result = new BitArray(word);
             int[] random = new int[seedSize];
             Seed.CopyTo(random, 0);
-            for (int i = wordSize; i > 0; i--)
+            for (int i = wordSize - 1; i > 0; i--)
             {
                 int r = Math.Abs(random[i]) % wordSize;
                 result.Swap(r, i);

@@ -40,7 +40,13 @@ namespace Urchin.Encoders
         {
             BitArray result = new BitArray(word);
             BitArray mix = new BitArray(Seed);
-            if (Entropy != null) mix = mix.Xor(Entropy);
+            if (result.Length < mix.Length)
+            {
+                bool[] shortMix = new bool[mix.Length];
+                mix.CopyTo(shortMix, 0);
+                Array.Resize<bool>(ref shortMix, result.Length);
+                mix = new BitArray(shortMix);
+            }
             result.Xor(mix);
             return result;
         }

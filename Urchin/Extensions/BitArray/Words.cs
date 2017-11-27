@@ -13,15 +13,15 @@ namespace Urchin.Extensions.BitArray.Words
         public static List<System.Collections.BitArray> ToWords(this System.Collections.BitArray instance, int bitsPerWord)
         {
             List<System.Collections.BitArray> result = new List<System.Collections.BitArray> { };
-            int size = (int)Math.Ceiling((double)instance.Length / bitsPerWord);
+            int wordCount = (int)Math.Ceiling((double)instance.Length / bitsPerWord);
             int lastBlockSize = instance.Length % bitsPerWord;
             int offset = 0;
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < wordCount; i++)
             {
-                bool isLastWord = (i == size - 1);
+                bool isLastWord = (i == wordCount - 1);
                 int wordSize = isLastWord ? lastBlockSize : bitsPerWord;
                 System.Collections.BitArray word = new System.Collections.BitArray(wordSize);
-                for (int position = 0; i < wordSize; i++)
+                for (int position = 0; position < wordSize; position++)
                 {
                     word[position] = instance[offset];
                     offset++;
