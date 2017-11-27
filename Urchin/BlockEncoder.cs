@@ -55,7 +55,7 @@ namespace Urchin
             int transformsCount = Transforms.Length;
             int bitsInBlock = blockLength * 8;
             int remainder = bitsInBlock % wordSize;
-            bool hasRemainder = remainder == 0;
+            bool hasRemainder = remainder != 0;
             int wordCount = (int)Math.Ceiling((double)bitsInBlock / wordSize);
             for (int index = 0; index < wordCount; index++)
             {
@@ -110,7 +110,7 @@ namespace Urchin
             byte[] result = new byte[block.Length];
             List<BitArray> buffer = new List<BitArray> { };
             List<BitArray> words = new BitArray(block).ToWords(snapshot.WordSize);
-            for (int i = words.Count - 1; i > 0; i--)
+            for (int i = words.Count - 1; i >= 0; i--)
             {
                 IWordEncoder decoder = snapshot.Transformations[i];
                 BitArray decoded = decoder.Decode(words[i]);

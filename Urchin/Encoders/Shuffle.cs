@@ -38,10 +38,10 @@ namespace Urchin.Encoders
             int size = word.Length;
             int[] random = new int[seedSize / 32];
             Seed.CopyTo(random, 0);
-            for (int i = size - 1; i > 0; i--)
+            for (int i = size - 1; i >= 0; i--)
             {
                 int r = Math.Abs(random[i]) % size;
-                result.Swap(r, i );
+                result.Swap(i, r);
             }
             return result;
         }

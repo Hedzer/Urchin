@@ -52,20 +52,17 @@ namespace Urchin.Abstracts
 
         public abstract byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount);
 
-        protected virtual byte[] ApplyFirstBlockEncoding(byte[] block, Procedure procedure = Procedure.Encode)
+        protected virtual List<IWordEncoder> CreateInitialBlockPlan(int blockByteCount)
         {
-            byte[] result = new byte[block.Length];
-            BitArray bits = new BitArray(block);
-            int bitCount = bits.Count;
+            List<IWordEncoder> result = new List<IWordEncoder>() { };
+            int bitCount = blockByteCount * 8;
             ICollection<IWordEncoder> initialTransforms = InstatiateTransforms(InitialTransforms);
-            initialTransforms = (procedure.Equals(Procedure.Encode) ? initialTransforms : initialTransforms.Reverse().ToArray());
             foreach (IWordEncoder process in initialTransforms)
             {
                 process.WordSize = bitCount;
                 process.Seed = keySchedule.GetNext(bitCount);
-                bits = (procedure.Equals(Procedure.Encode) ? process.Encode(bits) : process.Decode(bits));
+                result.Add(process);
             }
-            bits.CopyTo(result, 0);
             return result;
         }
 

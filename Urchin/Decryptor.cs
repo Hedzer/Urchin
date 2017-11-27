@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Urchin.Interfaces;
 using Urchin.Abstracts;
+using System.Collections;
 
 namespace Urchin
 {
@@ -18,12 +19,19 @@ namespace Urchin
             byte[] block = new byte[inputCount];
             Array.ConstrainedCopy(inputBuffer, inputOffset, block, 0, inputCount);
 
+            //Un-init plans
+            List<IWordEncoder> plan =  CreateUninitializationPlan(block);
+
             // Decode rounds
             BlockEncoder blockEncoder = new BlockEncoder(keySchedule);
             block = blockEncoder.Decode(block, rounds);
 
             // Un-init block
-            block = UninitializeBlock(block);
+            BitArray decoded = new BitArray(block);
+            plan.ForEach((IWordEncoder decoder) => {
+                decoded = decoder.Decode(decoded);
+            });
+            decoded.CopyTo(block, 0);
             block.CopyTo(outputBuffer, outputOffset);
 
             return inputCount;
@@ -36,9 +44,11 @@ namespace Urchin
             return outputBuffer;
         }
 
-        protected virtual byte[] UninitializeBlock(byte[] block)
+        protected virtual List<IWordEncoder> CreateUninitializationPlan(byte[] block)
         {
-            return ApplyFirstBlockEncoding(block, Procedure.Decode);
+            List<IWordEncoder> decoders = CreateInitialBlockPlan(block.Length);
+            decoders.Reverse();
+            return decoders;
         }
     }
 }

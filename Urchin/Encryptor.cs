@@ -41,7 +41,13 @@ namespace Urchin
 
         protected virtual byte[] InitializeBlock(byte[] block)
         {
-            return ApplyFirstBlockEncoding(block);
+            byte[] result = new byte[block.Length];
+            BitArray encoded = new BitArray(block);
+            CreateInitialBlockPlan(block.Length).ForEach((IWordEncoder encoder) => {
+                encoded = encoder.Encode(encoded);
+            });
+            encoded.CopyTo(result, 0);
+            return result;
         }
 
     }
