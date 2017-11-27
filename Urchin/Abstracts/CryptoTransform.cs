@@ -11,10 +11,12 @@ using System.Collections;
 
 namespace Urchin.Abstracts
 {
-    abstract class CryptoTransform : ICryptoTransform
+    public abstract class CryptoTransform : ICryptoTransform
     {
         protected IKeySchedule keySchedule;
         protected int rounds;
+        public static readonly int MinRounds = 24;
+        public static readonly int MaxAdditionalRounds = 16;
         protected enum Procedure
         {
             Encode,
@@ -28,7 +30,7 @@ namespace Urchin.Abstracts
             this.keySchedule = scheduler;
             byte[] random = new byte[8];
             scheduler.GetNext(8).CopyTo(random, 0);
-            rounds = random[0] % 16 + 24;
+            rounds = MinRounds + (random[0] % (MaxAdditionalRounds + 1));
         }
 
         public static ReadOnlyCollection<Type> InitialTransforms { get; } = new ReadOnlyCollection<Type>(new List<Type> { typeof(Xor), typeof(Shuffle) });
