@@ -51,9 +51,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockEncoderTest.cs" />
+    <Compile Include="BlockEncoder.cs" />
     <Compile Include="Cipher.cs" />
     <Compile Include="Encoders\Not.cs" />
+    <Compile Include="Extensions\Words.cs" />
     <Compile Include="KeyScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstracts\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Types\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

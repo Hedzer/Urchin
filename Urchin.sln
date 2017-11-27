@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urchin", "Urchin\Urchin.csproj", "{89F0EBC7-5864-43B8-ADE8-8BFAB572189F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrchinTests", "UrchinTests\UrchinTests.csproj", "{455E24E8-CD70-42C3-A4DD-95CEEAA35A7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{455E24E8-CD70-42C3-A4DD-95CEEAA35A7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
