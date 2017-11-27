@@ -54,6 +54,8 @@
     <Compile Include="BlockEncoder.cs" />
     <Compile Include="Cipher.cs" />
     <Compile Include="Encoders\Not.cs" />
+    <Compile Include="Encoders\Generic.cs" />
+    <Compile Include="Encoders\Xor.cs" />
     <Compile Include="Extensions\Words.cs" />
     <Compile Include="KeyScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
