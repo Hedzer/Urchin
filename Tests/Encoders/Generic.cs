@@ -6,7 +6,7 @@ using Urchin.Interfaces;
 using Urchin;
 using System.Collections.Generic;
 
-namespace UrchinTests.Encoders
+namespace Tests.Encoders
 {
     [TestClass, TestCategory("Encoders")]
     public class Generic<WordEncoder> where WordEncoder : IWordEncoder, new()

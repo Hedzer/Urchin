@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UrchinTests.Encoders
+namespace Tests.Encoders
 {
     [TestClass, TestCategory("Encoders.Xor")]
     public class Xor: Generic<Urchin.Encoders.Xor>

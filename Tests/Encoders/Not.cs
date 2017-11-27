@@ -8,60 +8,55 @@ using Urchin;
 namespace Tests.Encoders
 {
     [TestClass, TestCategory("Encoders.Not")]
-    public class Not
+    public class Not: Generic<Urchin.Encoders.Not>
     {
-        public static IWordEncoder instance = new Urchin.Encoders.Not();
-
         [TestMethod]
-        public void Property_GetSet_WordSize()
+        public override void Property_GetSet_WordSize()
         {
-            for (int i = BlockEncoder.MinWordSize; i < BlockEncoder.MaxWordSize; i++)
-            {
-                instance.WordSize = i;
-                Assert.AreEqual(instance.WordSize, i);
-            }
+            base.Property_GetSet_WordSize();
         }
 
         [TestMethod]
-        public void Property_Get_SeedSize()
+        public override void Property_Get_SeedSize()
         {
-            Assert.AreEqual(instance.SeedSize, 0);
+            base.Property_Get_SeedSize();
         }
 
         [TestMethod]
-        public void Property_GetSet_Seed()
+        public override void Property_GetSet_Seed()
         {
-            BitArray seed = new BitArray(instance.SeedSize);
-            instance.Seed = seed;
-            Assert.AreEqual(instance.Seed, seed);
+            base.Property_GetSet_Seed();
         }
 
         [TestMethod]
-        public void Property_GetSet_Entropy()
+        public override void Property_GetSet_Entropy()
         {
-            BitArray entropy = new BitArray(instance.SeedSize);
-            instance.Entropy = entropy;
-            Assert.AreEqual(instance.Entropy, entropy);
+            base.Property_GetSet_Entropy();
         }
 
         [TestMethod]
-        public void Decode()
+        public override void Decode()
         {
-            BitArray original = new BitArray(new bool[] { true, true, true, false, false, false });
-            BitArray encoded = instance.Encode(original);
-            BitArray decoded = instance.Decode(encoded);
-            Assert.AreEqual(original.Length, decoded.Length);
-            CollectionAssert.AreEqual(original, decoded);
-            Assert.AreNotEqual(encoded, decoded);
+            base.Decode();
         }
 
         [TestMethod]
-        public void Encode()
+        public override void Encode()
         {
-            BitArray original = new BitArray(new bool[] { true, true, true, false, false, false });
-            BitArray encoded = instance.Encode(original);
-            Assert.AreEqual(original.Length, encoded.Length);
-            CollectionAssert.AreNotEqual(encoded, original);
+            base.Encode();
         }
+
+        [TestMethod]
+        public override void LastWordEncode()
+        {
+            base.LastWordEncode();
+        }
+
+        [TestMethod]
+        public override void LastWordDecode()
+        {
+            base.LastWordDecode();
+        }
+
     }
 }
