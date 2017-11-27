@@ -5,7 +5,7 @@ using Urchin.Interfaces;
 using Urchin;
 
 
-namespace UrchinTests.Encoders
+namespace Tests.Encoders
 {
     [TestClass, TestCategory("Encoders.Not")]
     public class Not

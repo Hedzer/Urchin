@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Collections;
 using Urchin;
 
-namespace UrchinTests
+namespace Tests
 {
     [TestClass][TestCategory("KeyScheduler")]
     public class KeySchedulerTest

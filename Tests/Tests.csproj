@@ -51,6 +51,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockEncoderTest.cs" />
     <Compile Include="Cipher.cs" />
     <Compile Include="Encoders\Not.cs" />
     <Compile Include="KeyScheduler.cs" />

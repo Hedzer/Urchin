@@ -1,18 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Urchin;
 
-
-
-
-namespace UrchinTests
+namespace Tests.Extensions
 {
     [TestClass]
-    public class Cipher
+    public class Words
     {
-        public static void Main()
+        [TestMethod]
+        public void TestMethod1()
         {
-            
         }
     }
 }
