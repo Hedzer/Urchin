@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using Urchin.Interfaces;
 
 namespace Urchin
@@ -94,22 +92,40 @@ namespace Urchin
 
         public byte[] Encrypt(byte[] plaintext)
         {
-            throw new NotImplementedException();
-        }
-
-        public byte[] Decrypt(byte[] ciphertext)
-        {
-            throw new NotImplementedException();
+            byte[] result;
+            MemoryStream memory = new MemoryStream();
+            ICryptoTransform encryptor = CreateEncryptor();
+            CryptoStream stream = new CryptoStream(memory, encryptor, CryptoStreamMode.Write);
+            stream.Write(plaintext, 0, plaintext.Length);
+            stream.FlushFinalBlock();
+            result = memory.ToArray();
+            memory.Close();
+            stream.Close();
+            return result;
         }
 
         public byte[] Encrypt(string plaintext)
         {
-            throw new NotImplementedException();
+            return Encrypt(Encoding.ASCII.GetBytes(plaintext));
+        }
+
+        public byte[] Decrypt(byte[] ciphertext)
+        {
+            byte[] result;
+            MemoryStream memory = new MemoryStream();
+            ICryptoTransform decryptor = CreateDecryptor();
+            CryptoStream stream = new CryptoStream(memory, decryptor, CryptoStreamMode.Write);
+            stream.Write(ciphertext, 0, ciphertext.Length);
+            stream.FlushFinalBlock();
+            result = memory.ToArray();
+            memory.Close();
+            stream.Close();
+            return result;
         }
 
         public byte[] Decrypt(string ciphertext)
         {
-            throw new NotImplementedException();
+            return Decrypt(ciphertext);
         }
     }
 }
