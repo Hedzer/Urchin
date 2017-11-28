@@ -23,12 +23,13 @@ namespace Tests.Extensions.BitArray
         {
             HashAlgorithm hasher = new SHA512Managed();
             byte[] hash = hasher.ComputeHash(new byte[] { 1, 2, 3, 4, 5 });
-            for (int i = 0; i < 256; i++)
+            for (int i = 3; i < 256; i++)
             {
                 hash = hasher.ComputeHash(hash);
                 System.Collections.BitArray original = new System.Collections.BitArray(hash);
                 List<System.Collections.BitArray> words = original.ToWords(i);
-                CollectionAssert.AreEqual(original, words.ToBitArray());
+                System.Collections.BitArray reconstituted = words.ToBitArray();
+                CollectionAssert.AreEqual(original, reconstituted);
             }
         }
 

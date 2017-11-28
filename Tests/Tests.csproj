@@ -58,7 +58,7 @@
     <Compile Include="Encoders\Shuffle.cs" />
     <Compile Include="Encoders\Reverse.cs" />
     <Compile Include="Encoders\Xor.cs" />
-    <Compile Include="Extensions\Words.cs" />
+    <Compile Include="Extensions\BitArray\Words.cs" />
     <Compile Include="KeyScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
