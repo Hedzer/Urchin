@@ -48,9 +48,9 @@ namespace Urchin
             PseudoRandomize();
         }
 
-        public EncodingRound GetRoundSnapshot(int blockLength)
+        public EncodingPlan GetEncodingPlan(int blockLength)
         {
-            EncodingRound result = new EncodingRound();
+            EncodingPlan result = new EncodingPlan();
             result.WordSize = wordSize;
             int transformsCount = Transforms.Length;
             int bitsInBlock = blockLength * 8;
@@ -60,59 +60,57 @@ namespace Urchin
             for (int index = 0; index < wordCount; index++)
             {
                 int wordLength = (index == wordCount - 1  && hasRemainder ? remainder : wordSize);
-                EncoderProxy encoder = new EncoderProxy
-                {
-                    WordEncoder = transforms[index % transformsCount].GetType(),
-                    WordSize = wordLength,
-                };
+                IWordEncoder encoder = (IWordEncoder)Activator.CreateInstance(transforms[index % transformsCount].GetType());
+                encoder.WordSize = wordLength;
                 encoder.Seed = KeySchedule.GetNext(encoder.SeedSize);
                 result.Transformations.Add(encoder);
             }
             return result;
         }
 
-        public byte[] EncodeBlock(byte[] block)
+        public List<EncodingPlan> GetEncodingPlans(int blockLength, int iterations)
+        {
+            List<EncodingPlan> plans = new List<EncodingPlan> { };
+            for (int i = 0; i < iterations; i++)
+            {
+                plans.Add(GetEncodingPlan(blockLength));
+                PseudoRandomize();
+            }
+            return plans;
+        }
+
+        public byte[] EncodeBlock(EncodingPlan plan, byte[] block)
         {
             byte[] result = new byte[block.Length];
-            int transformsCount = Transforms.Length;
-            int bitsInBlock = block.Length * 8;
-            BitArray bits = new BitArray(bitsInBlock);
-            List<BitArray> words = new BitArray(block).ToWords(wordSize);
-            int offset = 0;
-            words.EachWord((BitArray word, int wordIndex) => {
-                int wordLength = word.Length;
-                IWordEncoder encoder = Transforms[wordIndex % transformsCount];
-                encoder.WordSize = wordLength;
-                encoder.Seed = KeySchedule.GetNext(encoder.SeedSize);
-                BitArray encoded = encoder.Encode(word);
-                encoded.EachBit((bool bit, int bitIndex) => {
-                    bits[offset] = bit;
-                    offset++;
-                });
-            });
-            bits.CopyTo(result, 0);
+            List<BitArray> words = new BitArray(block).ToWords(plan.WordSize);
+            int wordCount = words.Count;
+            for (int i = 0; i < wordCount; i++)
+            {
+                IWordEncoder encoder = plan.Transformations[i];
+                BitArray encoded = encoder.Encode(words[i]);
+                words[i] = encoded;
+            }
+            words.ToBitArray().CopyTo(result, 0);
             return result;
         }
 
         public byte[] Encode(byte[] block, int iterations)
         {
             byte[] result = block;
-            for (int i = 0; i < iterations; i++)
-            {
-                result = EncodeBlock(result);
-                PseudoRandomize();
-            }
+            GetEncodingPlans(block.Length, iterations).ForEach((EncodingPlan plan) => {
+                result = EncodeBlock(plan, result);
+            });
             return result;
         }
 
-        public byte[] DecodeBlock(byte[] block, EncodingRound snapshot)
+        public byte[] DecodeBlock(EncodingPlan plan, byte[] block)
         {
             byte[] result = new byte[block.Length];
             List<BitArray> buffer = new List<BitArray> { };
-            List<BitArray> words = new BitArray(block).ToWords(snapshot.WordSize);
+            List<BitArray> words = new BitArray(block).ToWords(plan.WordSize);
             for (int i = words.Count - 1; i >= 0; i--)
             {
-                IWordEncoder decoder = snapshot.Transformations[i];
+                IWordEncoder decoder = plan.Transformations[i];
                 BitArray decoded = decoder.Decode(words[i]);
                 buffer.Insert(0, decoded);
             }
@@ -123,17 +121,11 @@ namespace Urchin
         public byte[] Decode(byte[] block, int iterations)
         {
             byte[] result = block;
-            List<EncodingRound> rounds = new List<EncodingRound> { };
-            for (int i = 0; i < iterations; i++)
-            {
-                rounds.Add(GetRoundSnapshot(block.Length));
-                PseudoRandomize();
-            }
-            rounds.Reverse();
-            rounds.ForEach((EncodingRound round) => {
-                result = DecodeBlock(result, round);
+            List<EncodingPlan> plans = GetEncodingPlans(block.Length, iterations);
+            plans.Reverse();
+            plans.ForEach((EncodingPlan plan) => {
+                result = DecodeBlock(plan, result);
             });
-
             return result;
         }
 

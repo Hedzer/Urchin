@@ -67,10 +67,10 @@ namespace Tests
         {
             for (int i = 0; i < 25; i++)
             {
-                EncodingRound result = instance.GetRoundSnapshot(blockLength: 64) as EncodingRound;
+                EncodingPlan result = instance.GetEncodingPlan(blockLength: 64);
                 Assert.IsNotNull(result);
                 Assert.IsTrue(result.WordSize >= BlockEncoder.MinWordSize && result.WordSize <= BlockEncoder.MaxWordSize);
-                List<EncoderProxy> transformations = result.Transformations;
+                List<IWordEncoder> transformations = result.Transformations;
                 Assert.IsTrue(transformations.Count > 0);
             }
         }
@@ -80,7 +80,7 @@ namespace Tests
         {
             BlockEncoder instance = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
             byte[] block = hasher.ComputeHash(Key);
-            byte[] encoded = instance.EncodeBlock(block);
+            byte[] encoded = instance.Encode(block, iterations: 1);
             CollectionAssert.AreNotEqual(encoded, block);
         }
 
@@ -92,7 +92,7 @@ namespace Tests
             {
                 BlockEncoder instance = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
                 byte[] block = hasher.ComputeHash(Key);
-                byte[] encoded = instance.Encode(block, i);
+                byte[] encoded = instance.Encode(block, iterations: i);
                 Assert.IsTrue(block.Length == encoded.Length);
                 results.Add(Encoding.ASCII.GetString(encoded));
             }
@@ -102,7 +102,11 @@ namespace Tests
         [TestMethod]
         public void DecodeBlock()
         {
-
+            BlockEncoder encoder = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
+            BlockEncoder decoder = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
+            byte[] block = hasher.ComputeHash(Key);
+            byte[] encoded = encoder.Encode(block, iterations: 1);
+            byte[] decoded = decoder.Decode(block, iterations: 1);
         }
 
         [TestMethod]
@@ -113,11 +117,27 @@ namespace Tests
                 BlockEncoder encoder = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
                 BlockEncoder decoder = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
                 byte[] block = hasher.ComputeHash(Key);
+                byte[] copy = (byte[])block.Clone();
                 byte[] encoded = encoder.Encode(block, i);
+                //check to see whether it's being altered by accident
+                CollectionAssert.AreEqual(copy, block);
                 byte[] decoded = decoder.Decode(encoded, i);
                 Assert.IsTrue(block.Length == decoded.Length);
                 CollectionAssert.AreEqual(decoded, block);
             }
+        }
+        [TestMethod]
+        public void EncodeAndDecode()
+        {
+            byte[] block = hasher.ComputeHash(Key);
+            byte[] copy = (byte[])block.Clone();
+            BlockEncoder encoder = new BlockEncoder(new KeyScheduler { Key = Key, IV = IV });
+            List<EncodingPlan> plans = encoder.GetEncodingPlans(block.Length, CryptoTransform.MinRounds + CryptoTransform.MaxAdditionalRounds);
+            plans.ForEach((EncodingPlan plan) => {
+                block = encoder.EncodeBlock(plan, block);
+                block = encoder.DecodeBlock(plan, block);
+                CollectionAssert.AreEqual(block, copy);
+            });
         }
     }
 }

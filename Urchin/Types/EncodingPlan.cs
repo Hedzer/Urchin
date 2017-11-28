@@ -8,12 +8,12 @@ using Urchin.Encoders;
 
 namespace Urchin.Types
 {
-    public class EncodingRound
+    public class EncodingPlan
     {
-        private List<EncoderProxy> transformations = new List<EncoderProxy>() { };
+        private List<IWordEncoder> transformations = new List<IWordEncoder>() { };
         private int wordSize;
 
         public int WordSize { get => wordSize; set => wordSize = value; }
-        public List<EncoderProxy> Transformations { get => transformations; set => transformations = value; }
+        public List<IWordEncoder> Transformations { get => transformations; set => transformations = value; }
     }
 }

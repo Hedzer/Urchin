@@ -17,11 +17,13 @@ namespace Urchin.Interfaces
         // Instantiated transformers
         IWordEncoder[] Transforms { get; }
         // Transform a block
-        byte[] EncodeBlock(byte[] block);
+        byte[] EncodeBlock(EncodingPlan plan, byte[] block);
         // Undo the transformations
-        byte[] DecodeBlock(byte[] block, EncodingRound snapshot);
+        byte[] DecodeBlock(EncodingPlan plan, byte[] block);
         // Get a snapshot of the round for a given block
-        EncodingRound GetRoundSnapshot(int blockLength);
+        EncodingPlan GetEncodingPlan(int blockLength);
+        // Get a snapshot of the round for a given block
+        List<EncodingPlan> GetEncodingPlans(int blockLength, int iterations);
         // Apply transforms iteratively
         byte[] Encode(byte[] block, int iterations);
         // Undo transforms iteratively

@@ -63,7 +63,7 @@
     <Compile Include="Encoders\Reverse.cs" />
     <Compile Include="Encoders\Shuffle.cs" />
     <Compile Include="Encoders\Xor.cs" />
-    <Compile Include="Types\EncodingRound.cs" />
+    <Compile Include="Types\EncodingPlan.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
