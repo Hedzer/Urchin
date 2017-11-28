@@ -1,10 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using Type = System.Collections;
 
 namespace Urchin.Extensions.BitArray.Words
@@ -35,11 +31,11 @@ namespace Urchin.Extensions.BitArray.Words
         public static Type.BitArray ToBitArray(this List<Type.BitArray> instance)
         {
             List<bool> values = new List<bool> { };
-            instance.ForEach((System.Collections.BitArray item) => {
+            instance.ForEach((Type.BitArray item) => {
                 foreach (bool value in item) values.Add(value);
             });
 
-            return new System.Collections.BitArray(values.ToArray());
+            return new Type.BitArray(values.ToArray());
         }
 
         public delegate void EachItemAction<ItemType>(ItemType item, int index);

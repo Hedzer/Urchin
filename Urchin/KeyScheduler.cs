@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Urchin.Abstracts;
-using Urchin.Interfaces;
-using Urchin.Extensions.IEnumerable.Swap;
 using System.Security.Cryptography;
+using Urchin.Abstracts;
+using Urchin.Extensions.IEnumerable.Swap;
 
 namespace Urchin
 {

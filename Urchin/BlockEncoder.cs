@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Urchin.Types;
-using Urchin.Interfaces;
 using Urchin.Encoders;
-using Urchin.Extensions.IEnumerable.Swap;
 using Urchin.Extensions.BitArray.Words;
+using Urchin.Extensions.IEnumerable.Swap;
+using Urchin.Interfaces;
+using Urchin.Types;
 
 namespace Urchin
 {

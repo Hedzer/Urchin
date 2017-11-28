@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using Urchin.Interfaces;
-using Urchin.Encoders;
 using System.Collections;
 using Urchin.Abstracts;
-using System.Collections.ObjectModel;
+using Urchin.Interfaces;
 
 namespace Urchin
 {

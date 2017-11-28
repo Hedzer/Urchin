@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
-using System.Security.Cryptography;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Urchin.Interfaces;
-using Urchin;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Urchin;
+using Urchin.Interfaces;
 
 namespace Tests.Encoders
 {

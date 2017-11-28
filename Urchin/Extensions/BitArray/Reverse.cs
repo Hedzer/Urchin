@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Urchin.Extensions.BitArray.Reverse
+﻿namespace Urchin.Extensions.BitArray.Reverse
 {
     public static class ReverseExt
     {

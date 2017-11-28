@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Urchin.Interfaces;
 using Urchin.Extensions.BitArray.Reverse;
+using Urchin.Interfaces;
 
 namespace Urchin.Encoders
 {

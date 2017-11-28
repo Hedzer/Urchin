@@ -1,15 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Urchin;
-using Urchin.Interfaces;
-using Urchin.Types;
-using Urchin.Encoders;
-using Urchin.Abstracts;
-using System.Reflection;
-using System.Collections;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using Urchin;
+using Urchin.Abstracts;
+using Urchin.Interfaces;
+using Urchin.Types;
 
 namespace Tests
 {

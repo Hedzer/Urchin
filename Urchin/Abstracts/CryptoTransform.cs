@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Urchin.Interfaces;
+using System.Collections.ObjectModel;
 using System.Security.Cryptography;
 using Urchin.Encoders;
-using System.Collections.ObjectModel;
-using System.Collections;
+using Urchin.Interfaces;
 
 namespace Urchin.Abstracts
 {

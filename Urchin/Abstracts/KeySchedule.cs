@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using Urchin.Interfaces;
+﻿using System.Collections;
 using System.Security.Cryptography;
+using Urchin.Interfaces;
 
 namespace Urchin.Abstracts
 {

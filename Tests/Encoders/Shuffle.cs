@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Urchin.Interfaces;
-using Urchin;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
 namespace Tests.Encoders

@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Security.Cryptography;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
+using System.Security.Cryptography;
 using Urchin;
 
 namespace Tests
