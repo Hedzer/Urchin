@@ -9,7 +9,7 @@ namespace Urchin
     public class Cipher : SymmetricAlgorithm, ICipher
     {
         // Random Key Generator, SHA512 of a random number
-        public virtual byte[] RKG()
+        public virtual byte[] RandomKeyGenerator()
         {
             HMACSHA512 hasher = new HMACSHA512();
             using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
@@ -82,12 +82,12 @@ namespace Urchin
 
         public override void GenerateKey()
         {
-            Key = RKG();
+            Key = RandomKeyGenerator();
         }
 
         public override void GenerateIV()
         {
-            IV = RKG();
+            IV = RandomKeyGenerator();
         }
 
         public byte[] Encrypt(byte[] plaintext)
